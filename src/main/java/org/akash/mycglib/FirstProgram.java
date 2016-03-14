@@ -9,9 +9,9 @@ import net.sf.cglib.proxy.MethodProxy;
 public class FirstProgram {
 
 	/**
-	 * 	*** https://dzone.com/articles/cglib-missing-manual
-	 * 	*** http://www.artima.com/underthehood/invocationP.html
-	 * 	**  http://zeroturnaround.com/rebellabs/java-bytecode-fundamentals-using-objects-and-calling-methods/
+	 * *** 	https://dzone.com/articles/cglib-missing-manual 
+	 * *** 	http://www.artima.com/underthehood/invocationP.html 
+	 * ** 	http://zeroturnaround.com/rebellabs/java-bytecode-fundamentals-using-objects-and-calling-methods/
 	 * 
 	 * (1) private , static and final methods are not enhanced.
 	 * 
@@ -25,10 +25,10 @@ public class FirstProgram {
 	 * classes being stored in a special section of the JVM's memory: The so
 	 * called perm space.
 	 * 
-	 * (5) Only those methods are proxied that are invokeVirtual.
-	 * 		invokeSpecial and invokeStatic methods are not proxied.
-	 * 		static methods are invokeStatic
-	 * 		constructors, methods called using super keyword and private methods are invokeSpecial
+	 * (5) Only those methods are proxied that are invokeVirtual. invokeSpecial
+	 * and invokeStatic methods are not proxied. static methods are invokeStatic
+	 * constructors, methods called using super keyword and private methods are
+	 * invokeSpecial
 	 * 
 	 */
 
@@ -44,27 +44,29 @@ public class FirstProgram {
 
 		Enhancer enhancer = new Enhancer();
 		enhancer.setSuperclass(SampleClass.class);
-		enhancer.setCallback(new MethodInterceptor() {
-
-			public Object intercept(Object obj, Method method, Object[] args,
-					MethodProxy proxy) throws Throwable {
-
-				System.out.println("intercept");
-				if (method.getDeclaringClass() != Object.class
-						&& method.getReturnType() == String.class) {
-
-					proxy.invokeSuper(obj, args);
-					return "Hello cglib!";
-
-				} else {
-					return proxy.invokeSuper(obj, args);
-				}
-			}
-		});
+		enhancer.setCallback(new SampleClassProxy());
 		SampleClass proxy = (SampleClass) enhancer.create();
 		System.out.println(proxy.test(null));
 		System.out.println(proxy.test1(null));
 		System.out.println(proxy.test2(null));
 		System.out.println(proxy.test4(null));
+	}
+}
+
+class SampleClassProxy implements MethodInterceptor {
+
+	public Object intercept(Object obj, Method method, Object[] args,
+			MethodProxy proxy) throws Throwable {
+
+		System.out.println("intercept");
+		if (method.getDeclaringClass() != Object.class
+				&& method.getReturnType() == String.class) {
+
+			proxy.invokeSuper(obj, args);
+			return "Hello cglib!";
+
+		} else {
+			return proxy.invokeSuper(obj, args);
+		}
 	}
 }
