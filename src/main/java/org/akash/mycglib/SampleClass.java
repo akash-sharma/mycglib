@@ -26,4 +26,19 @@ public class SampleClass {
 		System.out.println("static method");
 		return "Hello world!";
 	}
+	
+	class InnerSample {
+		
+		String test2(String input) {
+			System.out.println("default method");
+			return "Hello world!";
+		}
+	}
+	
+	static class InnerStaticSample {
+		String test2(String input) {
+			System.out.println("default method");
+			return "Hello world!";
+		}
+	}
 }

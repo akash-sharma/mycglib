@@ -9,9 +9,9 @@ import net.sf.cglib.proxy.MethodProxy;
 public class FirstProgram {
 
 	/**
-	 * *** 	https://dzone.com/articles/cglib-missing-manual 
-	 * *** 	http://www.artima.com/underthehood/invocationP.html 
-	 * ** 	http://zeroturnaround.com/rebellabs/java-bytecode-fundamentals-using-objects-and-calling-methods/
+	 * *** https://dzone.com/articles/cglib-missing-manual 
+	 * *** http://www.artima.com/underthehood/invocationP.html 
+	 * ** http://zeroturnaround.com/rebellabs/java-bytecode-fundamentals-using-objects-and-calling-methods/
 	 * 
 	 * (1) private , static and final methods are not enhanced.
 	 * 
@@ -29,6 +29,21 @@ public class FirstProgram {
 	 * and invokeStatic methods are not proxied. static methods are invokeStatic
 	 * constructors, methods called using super keyword and private methods are
 	 * invokeSpecial
+	 * 
+	 * (Q) public non-static methods inside private inner classes OR inside
+	 * static inner classes ---> invokeVirtual or not
+	 * 
+	 */
+	
+	/**
+	 * Javassist :
+	 * http://www.javaquery.com/2014/11/how-to-inject-code-at-runtime-in-java.html
+	 * http://jboss-javassist.github.io/javassist/tutorial/tutorial.html
+	 * 
+	 * 
+	 * AspectJ
+	 * https://eclipse.org/aspectj/doc/next/progguide/starting.html
+	 * https://www.ibm.com/developerworks/java/library/j-aspectj/
 	 * 
 	 */
 
@@ -50,6 +65,13 @@ public class FirstProgram {
 		System.out.println(proxy.test1(null));
 		System.out.println(proxy.test2(null));
 		System.out.println(proxy.test4(null));
+
+		/*SampleClass.InnerSample innerProxy = proxy.new InnerSample();
+		SampleClass.InnerStaticSample innerStaticProxy = new SampleClass.InnerStaticSample();
+
+		System.out.println(innerProxy.test2(null));
+		System.out.println(innerStaticProxy.test2(null));*/
+		
 	}
 }
 
