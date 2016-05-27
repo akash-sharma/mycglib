@@ -19,16 +19,16 @@ public class FirstProgram {
 	 * the enhanced class (and therefore be able to override package-private
 	 * methods).
 	 * 
-	 * (3) final classes are not enhanced.
+	 * (3) static and final classes are not enhanced.
 	 * 
 	 * (4) All cglib classes generate byte code which results in additional
 	 * classes being stored in a special section of the JVM's memory: The so
-	 * called perm space.
+	 * called Metaspace.
 	 * 
 	 * (5) Only those methods are proxied that are invokeVirtual. invokeSpecial
-	 * and invokeStatic methods are not proxied. static methods are invokeStatic
+	 * and invokeStatic methods are not proxied. static methods are invokeStatic.
 	 * constructors, methods called using super keyword and private methods are
-	 * invokeSpecial
+	 * invokeSpecial.
 	 * 
 	 * (Q) public non-static methods inside private inner classes OR inside
 	 * static inner classes ---> invokeVirtual or not
@@ -44,6 +44,10 @@ public class FirstProgram {
 	 * AspectJ
 	 * https://eclipse.org/aspectj/doc/next/progguide/starting.html
 	 * https://www.ibm.com/developerworks/java/library/j-aspectj/
+	 * 
+	 * Metaspace OutofMemoryError :
+	 * http://www.herongyang.com/JVM/Data-Area-CGLIB-Dynamically-Generated-Classes.html
+	 * http://www.herongyang.com/JVM/Data-Area-CGLIB-Garbage-Collection-Issue.html
 	 * 
 	 */
 
